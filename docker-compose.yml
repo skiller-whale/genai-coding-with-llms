@@ -31,9 +31,10 @@ services:
       - /home/learner/.continue/sessions:/sessions_raw
       - /home/learner/genai-coding-with-llms/.chat_history:/sessions_filtered
   indexing_provider:
+    profiles: ["skiller-whale"]
     build: .codebase_indexing
     volumes:
       - ./src:/codebase
       - ./attendance_id:/app/sync/attendance_id
     ports:
-      - "5003:5001"
+      - "5001:5001"
