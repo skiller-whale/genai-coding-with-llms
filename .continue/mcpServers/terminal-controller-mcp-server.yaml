@@ -1,0 +1,9 @@
+name: Terminal Controller MCP Server
+version: 0.0.1
+schema: v1
+mcpServers:
+  - name: Terminal Controller MCP Server
+    command: python3
+    args:
+      - /home/learner/genai-coding-with-llms/.continue/mcpServers/terminal_controller.py
+    env: {}
