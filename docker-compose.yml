@@ -1,12 +1,5 @@
 version: '3.8'
 services:
-  app:
-    build:
-      context: .
-    volumes:
-      - ./src:/app/src
-    ports:
-      - 1002:5000
   sync:
     profiles: ["skiller-whale"]
     image: "ghcr.io/skiller-whale/learnersync:0.2.4"
@@ -20,7 +13,7 @@ services:
       IGNORE_MATCH: ".git"
     volumes:
       - .:/app/exercises
-      - ./.chat_history:/app/chat_history
+      - ./.continue/chat_history:/app/chat_history
       - ./attendance_id:/app/sync/attendance_id
     tty: true
     stdin_open: true
@@ -29,12 +22,16 @@ services:
     image: "ghcr.io/skiller-whale/continue-session-sync-filter:0.0.2"
     volumes:
       - /home/learner/.continue/sessions:/sessions_raw
-      - /home/learner/genai-coding-with-llms/.chat_history:/sessions_filtered
+      - /home/learner/genai-coding-with-llms/.continue/chat_history:/sessions_filtered
   indexing_provider:
     profiles: ["skiller-whale"]
-    build: .codebase_indexing
+    build: ./.continue/codebase_indexing
     volumes:
-      - ./src:/codebase
+      - ./src:/codebase/src:ro
+      - ./docs:/codebase/docs:ro
+      - ./tests:/codebase/tests:ro
+      - ./samples:/codebase/samples:ro
+      - ./README.md:/codebase/README.md:ro
       - ./attendance_id:/app/sync/attendance_id
     ports:
       - "5001:5001"

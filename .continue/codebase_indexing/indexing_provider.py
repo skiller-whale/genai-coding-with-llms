@@ -89,7 +89,7 @@ class CodebaseIndexer:
         self.vector_store.add_documents(documents=all_splits)
         self.vector_store.dump(self.VECTOR_STORE_PATH)
 
-    def search_codebase(self, query, k=10):
+    def search_codebase(self, query, k=15):
         """Search the codebase for a query."""
         if not self.vector_store:
             raise ValueError('Vector store not initialized. Please index first.')
@@ -106,7 +106,7 @@ app.config['CODEBASE'] = CODEBASE
 def search():
     """search route to handle indexing and searching."""
     query = request.get_json().get('fullInput')
-    results = app.config['indexer'].search_codebase(query, k=10)
+    results = app.config['indexer'].search_codebase(query, k=15)
 
     # NOTE: deprecated
     # If the codebase that's indexed doesn't exist, return nothing
