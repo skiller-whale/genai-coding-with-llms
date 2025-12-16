@@ -2,7 +2,7 @@ version: '3.8'
 services:
   sync:
     profiles: ["skiller-whale"]
-    image: "ghcr.io/skiller-whale/learnersync:0.2.4"
+    image: "ghcr.io/skiller-whale/learnersync:0.2.6"
     network_mode: "host"
     environment:
       SERVER_URL: https://train.skillerwhale.com
@@ -22,7 +22,7 @@ services:
     image: "ghcr.io/skiller-whale/continue-session-sync-filter:0.0.2"
     volumes:
       - /home/learner/.continue/sessions:/sessions_raw
-      - /home/learner/genai-coding-with-llms/.continue/chat_history:/sessions_filtered
+      - /home/learner/genai-coding-with-llms-staging/.continue/chat_history:/sessions_filtered
   indexing_provider:
     profiles: ["skiller-whale"]
     build: ./.continue/codebase_indexing
